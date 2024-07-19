@@ -173,3 +173,37 @@ def y_midpoint(f, t_eval, y0):
             return h*f(t_current + h/2, (res[-1] + x) / 2) + res[-1] - x
         res.append(find_zero(back_euler))
     return res
+
+
+def partial(f, index, h=1e-6):
+    '''
+    Returns the partial derivative of f
+    with the derivative with respect to 
+    the index variable.  Uses h to take
+    the derivative.  
+    '''
+    def res(*x):
+        return (f(*(xi if i != index else xi+h
+                    for i, xi in enumerate(x)))
+                - f(*x)) / h
+    return res
+
+
+def second_order_taylor(f, t_eval, y0):
+    '''
+    Uses the second-order Taylor method 
+    to approximate the solution to the IVP 
+    y' = f(t,y) with y(t_eval[0]) = y_0.
+
+    Returns an array with the same length 
+    as t_eval with entries corresponding to
+    the approximated values of y(t_eval[i]).
+    '''
+    res = [y0]
+    for t_prev, t_current in zip(t_eval, t_eval[1:]):
+        h = t_current - t_prev
+        res.append(res[-1]
+                   + h * f(t_current, res[-1])
+                   + ((h**2) / 2) * (partial(f, 0)(t_current, res[-1])
+                                     + partial(f, 1)(t_current, res[-1])*f(t_current, res[-1])))
+    return res
