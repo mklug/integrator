@@ -7,6 +7,6 @@ Python implementation of several ODE IVP solvers.  Namely, the following methods
 - trapazoidal
 - backward Euler
 - $y$-midpoint
-- second order Taylor
+- second-order Taylor
 
-I enjoyed learning about many of these methods in "Differential Equations, Mechanics, and Computation" by Palais and Palais.  
+I enjoyed learning about many of these methods in "Differential Equations, Mechanics, and Computation" by Palais and Palais.  There are also some helper methods, namely, an implementation of Newton's method (used for the implicit methods) and a function for taking partial derivatives (used in the second-order Taylor method). 
